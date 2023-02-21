@@ -1,25 +1,35 @@
 
-# class for board
+#Opening instructions:
+"Instructions: Give the coordinants where you want to place your mark, i.e. A1."
+"Player 1 is X. Player 2 is O."
+
+#Setup board
+
+#Setup players
+player1 = Player.new("Player 1", "X")
+player2 = Player.new("Player 2", "O")
+
+#Game loop?
+while check_empty(board)
+  display(bboard)
+
+
+
+# class for board?
 class Board
 
   # Display Board
   def display(arr)
-    puts "  A   B   C"
-    arr.each do |one, two, three|
-      x = 1
-      puts "#{x} #{one} | #{two} | #{three}"
-      x += 1 #Not working - figure out how to increment for each row
+   arr.each_slice(3).to_a.each do |one, two, three|
+     puts "#{one} | #{two} | #{three}"
     end
   end
+
+  #Creates a blank board
   def blank_board
-    #Creates a blank board
-    bboard = [["_","_","_"],["_","_","_"],["_","_","_"]]
+    board = Array.new(9) { "_" }
   end
 end
-
-#Need to fix how to display board - using class
-p display(board)
-
 
 # class for players
 class Player(name, mark)
@@ -35,27 +45,26 @@ def check_empty(arr)
 end
 
 
-# method for checking win/tie
+# method for checking win/tie - need to fix for new board layout
 def check_board(arr)
-  # Checks wins:
   if arr[0][0] == arr[0][1] && arr[0][1] == arr[0][2]
-  
+    game_over(arr[0][0])
   elsif arr[1][0] == arr[1][1] && arr[1][1] == arr[1][2]
-    
+    game_over(arr[1][0])
   elsif arr[2][0] == arr[2][1] && arr[2][1] == arr[2][2]
-  
+    game_over(arr[2][0])
   elsif arr[0][0] == arr[1][0] && arr[1][0] == arr[2][0]
-  
+    game_over(arr[0][0])
   elsif arr[0][1] == arr[1][1] && arr[1][1] == arr[2][1]
-  
+    game_over(arr[0][1])
   elsif arr[0][2] == arr[1][2] && arr[1][2] == arr[2][2]
-
+    game_over(arr[0][2])
   elsif arr[0][0] == arr[1][1] && arr[1][1] == arr[2][2]
-  
+    game_over(arr[0][0])
   elsif arr[2][0] == arr[1][1] && arr[1][1] == arr[0][2]
-      #Game ends for each of these - pass along mark
+    game_over(arr[2][0])
   else
-    puts "This didn't work... :("
+    game_over("Tie")
   end
 end
 
@@ -67,10 +76,24 @@ if check_empty(board) == false
 else
   # Prompt player input
   puts "#{player}'s turn. Where do you want to place your mark?"
-
+  input = gets.chomp
 end
 
-# Check format (ABC/123)
-  
+
+
 # Place player mark
-  board[1][1] = "X"
+  #player input at correct index:
+  board[player_input - 1] = "X"
+
+#Game Over
+def game_over(mark)
+  if mark = "X"
+    puts "Game Over - Player 1 Wins!"
+  elsif mark = "O"
+    puts "Game Over - Player 2 Wins!"
+  elsif mark = "Tie"
+    puts "Game Over - It's a tie!"
+  else
+    puts "Error - game_over"
+  end
+end
