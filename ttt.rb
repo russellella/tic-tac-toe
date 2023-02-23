@@ -12,23 +12,22 @@ class Game
   end
 
   def play
+    players = arr.new = [["Player 1", "X"], ["Player 2", "O"]]
     while check_empty(gameboard)
+      players.each { | player, mark| } do
       display(gameboard)
-      #Get player input
-      puts "Player 1's turn. Where do you want to place your mark?"
-      input = gets.chomp
-      # Check format
-      unless input.between?(1, 9)
-        puts "Uh oh! Try again. Where do you want to place your mark?"
-      # Check if spot is empty
-      if gameboard[player_input - 1] = "_"
-        gameboard[player_input - 1] = #MARK
+       puts "#{player} turn. Where do you want to place your mark?"
+       input = gets.chomp
+        unless input.between?(1, 9) && gameboard[input - 1] = "_"
+          puts "Uh oh! Try again. Where do you want to place your mark?"
+          input = gets.chomp
+        end
+        gameboard[input - 1] = "#{mark}"
         check_board(gameboard)
-      else
-        puts "That spot is taken. Where do you want to place your mark?"
-        # need to repeat back to prompt - how to do that?
+        end
       end
     end
+  end
 end
 
 # class for board?
@@ -71,7 +70,7 @@ def check_board(arr)
   elsif arr[2] == arr[4] && arr[4] == arr[6]
     game_over(arr[2])
   else
-    #???
+    puts "check_board error!"
   end
 end
 
@@ -85,13 +84,5 @@ def game_over(mark)
     puts "Game Over - It's a tie!"
   else
     puts "Error - game_over"
-  end
-end
-
-
-class Player
-  def initialize
-    @name = name
-    @mark = mark
   end
 end
