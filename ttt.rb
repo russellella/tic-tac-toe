@@ -10,10 +10,10 @@ class Game
       players.each do | player, mark |
         display(@gameboard)
         puts "#{player} turn. Where do you want to place your mark?"
-        input = gets.chomp
+        input = gets.chomp.to_i
           unless input.between?(1, 9) && gameboard[input - 1] = "_"
             puts "Uh oh! Try again. Where do you want to place your mark?"
-            input = gets.chomp
+            input = gets.chomp.to_i
           end
         gameboard[input - 1] = "#{mark}"
         check_board(gameboard)
@@ -41,7 +41,7 @@ class Board
   end
 
   def check_empty(arr)
-    arr.any? { |a| a.include?("_") }
+    arr.to_s.include? "_"
   end
 end
 
