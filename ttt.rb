@@ -17,8 +17,11 @@ class Game
         display(@tboard)
         puts "#{player} turn. Where do you want to place your mark?"
         input = gets.chomp.to_i
-          unless input.between?(1, 9) && @tboard[input - 1] = "_"
+          if !input.between?(1, 9)
             puts "Uh oh! Try again. Where do you want to place your mark?"
+            input = gets.chomp.to_i
+          elsif @tboard[input - 1] != "_"
+            puts "That spot is taken. Where do you want to place your mark?"
             input = gets.chomp.to_i
           end
         @tboard[input - 1] = "#{mark}"
