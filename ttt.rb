@@ -2,9 +2,10 @@ class Game
   def initialize(testboard)
     @tboard = testboard.gameboard
     @players = []
+    @over = false
     puts "Instructions: Player 1 is X. Player 2 is O."
   end
-
+  
   def add_players(player)
     @players << [player.name, player.mark]
   end
@@ -22,7 +23,9 @@ class Game
         @tboard[input - 1] = "#{mark}"
         check_board(@tboard)
         end
-      end
+      break if @over == true
+    end
+    
   end
 
   def check_empty
@@ -46,18 +49,23 @@ class Game
       game_over(arr[0])
     elsif arr[2] == arr[4] && arr[4] == arr[6]
       game_over(arr[2])
-    elsif game_end == true && !check_empty(gameboard)
+    elsif !check_empty
       game_over("Tie")
+    else
+      p "nothing"
     end
   end
 
   def game_over(mark)
     if mark == "X"
       puts "Game Over - Player 1 Wins!"
+      @over = true
     elsif mark == "O"
       puts "Game Over - Player 2 Wins!"
+      @over = true
     elsif mark == "Tie"
       puts "Game Over - It's a tie!"
+      @over = true
     else
       puts "game_over error"      
     end
