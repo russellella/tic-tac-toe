@@ -1,6 +1,6 @@
 class Game
-  def initialize
-    @gameboard = Board.new
+  def initialize(testboard)
+    @tboard = testboard.gameboard
     @players = []
     puts "Instructions: Player 1 is X. Player 2 is O."
   end
@@ -10,23 +10,23 @@ class Game
   end
 
   def play
-    while check_empty_space(@gameboard) do
-      players.each do | player, mark |
-        gameboard.display
+    while check_empty do
+      @players.each do | player, mark |
+        @tboard.display
         puts "#{player} turn. Where do you want to place your mark?"
         input = gets.chomp.to_i
-          unless input.between?(1, 9) && @gameboard[input - 1] = "_"
+          unless input.between?(1, 9) && tboard[input - 1] = "_"
             puts "Uh oh! Try again. Where do you want to place your mark?"
             input = gets.chomp.to_i
           end
-        gameboard[input - 1] = "#{mark}"
-        check_board(gameboard)
+        @tboard[input - 1] = "#{mark}"
+        check_board(@tboard)
         end
       end
   end
-    
-  def check_empty_space(arr)
-    arr.to_s.include? "_"
+
+  def check_empty
+    @tboard.include? "_"
   end
 
   def check_board(arr)
@@ -62,21 +62,20 @@ class Game
       puts "game_over error"      
     end
   end
-end
-  
-
-class Board
-  def initialize
-    @gameboard = Array.new(9) { "_" }
-  end
 
   def display(arr)
-   arr.each_slice(3).to_a.each do |one, two, three|
+    arr.each_slice(3).to_a.each do |one, two, three|
      puts "#{one} | #{two} | #{three}"
     end
   end
 end
 
+class Board
+  attr_accessor :gameboard
+  def initialize
+    @gameboard = Array.new(9) { "_" }
+  end
+end
 
 class Player
   def initialize(name, mark)
@@ -85,10 +84,10 @@ class Player
   end
 end
 
-
-new_game = Game.new
 player1 = Player.new("Player 1", "X")
 player2 = Player.new("Player 2", "O")
-new_game.add_players(player1)
-new_game.add_players(player2)
-new_game.play
+testboard = Board.new
+game = Game.new(testboard)
+game.add_players(player1)
+game.add_players(player2)
+game.play
