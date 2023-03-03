@@ -6,16 +6,16 @@ class Game
   end
 
   def add_players(player)
-    @players << player
+    @players << [player.name, player.mark]
   end
 
   def play
     while check_empty do
       @players.each do | player, mark |
-        @tboard.display
+        display(@tboard)
         puts "#{player} turn. Where do you want to place your mark?"
         input = gets.chomp.to_i
-          unless input.between?(1, 9) && tboard[input - 1] = "_"
+          unless input.between?(1, 9) && @tboard[input - 1] = "_"
             puts "Uh oh! Try again. Where do you want to place your mark?"
             input = gets.chomp.to_i
           end
@@ -78,6 +78,7 @@ class Board
 end
 
 class Player
+  attr_accessor :name, :mark
   def initialize(name, mark)
     @name = name
     @mark = mark
