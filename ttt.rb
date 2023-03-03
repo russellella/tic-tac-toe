@@ -13,6 +13,7 @@ class Game
   def play
     while check_empty do
       @players.each do | player, mark |
+        break if @over == true
         display(@tboard)
         puts "#{player} turn. Where do you want to place your mark?"
         input = gets.chomp.to_i
