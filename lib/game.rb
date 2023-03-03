@@ -80,26 +80,3 @@ class Game
     end
   end
 end
-
-class Board
-  attr_accessor :gameboard
-  def initialize
-    @gameboard = Array.new(9) { "_" }
-  end
-end
-
-class Player
-  attr_accessor :name, :mark
-  def initialize(name, mark)
-    @name = name
-    @mark = mark
-  end
-end
-
-player1 = Player.new("Player 1", "X")
-player2 = Player.new("Player 2", "O")
-testboard = Board.new
-game = Game.new(testboard)
-game.add_players(player1)
-game.add_players(player2)
-game.play
