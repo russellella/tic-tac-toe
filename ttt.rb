@@ -62,12 +62,15 @@ class Game
 
   def game_over(mark)
     if mark == "X"
+      display(@tboard)
       puts "Game Over - Player 1 Wins!"
       @over = true
     elsif mark == "O"
+      display(@tboard)
       puts "Game Over - Player 2 Wins!"
       @over = true
     elsif mark == "Tie"
+      display(@tboard)
       puts "Game Over - It's a tie!"
       @over = true     
     end
