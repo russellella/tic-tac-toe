@@ -55,8 +55,6 @@ class Game
       game_over(arr[2])
     elsif !check_empty
       game_over("Tie")
-    else
-      p "nothing"
     end
   end
 
