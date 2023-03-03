@@ -66,9 +66,7 @@ class Game
       @over = true
     elsif mark == "Tie"
       puts "Game Over - It's a tie!"
-      @over = true
-    else
-      puts "game_over error"      
+      @over = true     
     end
   end
 
